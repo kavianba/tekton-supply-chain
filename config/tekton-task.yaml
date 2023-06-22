@@ -8,7 +8,8 @@ spec:
     type: string
   - name: source-revision
     type: string
-  - name: sub-path
+  - default: ""
+    name: sub-path
     type: string
   steps:
   - image: maven:3.8.6

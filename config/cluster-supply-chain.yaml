@@ -83,3 +83,20 @@ spec:
     sources:
     - resource: tekton-runnable-pipeline
       name: source
+
+  - name: tekton-runnable-task
+    templateRef:
+      kind: ClusterSourceTemplate
+      name: tekton-runnable-task
+    sources:
+    - resource: tekton-norunnable-pipeline
+      name: source
+  
+  - name: tekton-norunnable-task
+    templateRef:
+      kind: ClusterSourceTemplate
+      name: tekton-norunnable-task
+    sources:
+    - resource: tekton-runnable-task
+      name: source
+

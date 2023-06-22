@@ -2,7 +2,7 @@
 apiVersion: carto.run/v1alpha1
 kind: ClusterSourceTemplate
 metadata:
-  name: tekton-runnable-pipeline
+  name: tekton-runnable-task
 spec:
   urlPath: .status.outputs.url
   revisionPath: .status.outputs.revision
@@ -40,14 +40,14 @@ spec:
     apiVersion: carto.run/v1alpha1
     kind: Runnable
     metadata:
-      name: #@ data.values.workload.metadata.name + "-pipeline"
+      name: #@ data.values.workload.metadata.name + "-task"
       labels: #@ merge_labels({ "app.kubernetes.io/component": "test" })
     spec:
       #@ if/end hasattr(data.values.workload.spec, "serviceAccountName"):
       serviceAccountName: #@ data.values.workload.spec.serviceAccountName
 
       runTemplateRef:
-        name: tekton-cluster-run-template
+        name: tekton-cluster-run-template-task
         kind: ClusterRunTemplate
 
       inputs: 
