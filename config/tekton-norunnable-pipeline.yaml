@@ -1,0 +1,29 @@
+---
+apiVersion: carto.run/v1alpha1
+kind: ClusterSourceTemplate
+metadata:
+  name: tekton-norunnable-pipeline
+spec:
+  urlPath: .status.outputs.url
+  revisionPath: .status.outputs.revision
+
+  healthRule:
+    singleConditionType: Succeeded
+
+  template:
+    apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: tekton-norunnable-pipeline-run-
+    spec:
+      pipelineRef:
+        name: tekton-pipeline
+      params:
+        - name: source-url
+          value: $(source.url)$
+        - name: source-revision
+          value: $(source.revision)$
+
+  urlPath: .status.pipelineSpec.tasks[0].params[0].value
+  revisionPath: .status.pipelineSpec.tasks[0].params[1].value
+  lifecycle: tekton

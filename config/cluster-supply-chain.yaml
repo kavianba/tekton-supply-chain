@@ -68,96 +68,18 @@ spec:
       - name: gitImplementation
         value: #@ data.values.git_implementation
 
-  - name: source-tester
+  - name: tekton-runnable-pipeline
     templateRef:
       kind: ClusterSourceTemplate
-      name: testing-pipeline
+      name: tekton-runnable-pipeline
     sources:
     - resource: source-provider
       name: source
-
-
-          
-  - name: image-provider
+  
+  - name: tekton-norunnable-pipeline
     templateRef:
-      kind: ClusterImageTemplate
-      name: kpack-template
-    params:
-      - name: serviceAccount
-        default: #@ data.values.service_account
-      - name: registry
-        value: #@ data.values.registry
-      - name: clusterBuilder
-        default: #@ data.values.cluster_builder
-      - name: dockerfile
-        default: ./Dockerfile
-      - name: docker_build_context
-        default: ./
-      - name: docker_build_extra_args
-        default: []
+      kind: ClusterSourceTemplate
+      name: tekton-norunnable-pipeline
     sources:
-
-
-      - resource: source-tester
-        name: source
-
-
-          
-  - name: config-provider
-    templateRef:
-      kind: ClusterConfigTemplate
-      name: convention-template
-    params:
-      - name: serviceAccount
-        default: #@ data.values.service_account
-    images:
-
-    - resource: image-provider
-      name: image
-
-  - name: app-config
-    templateRef:
-      kind: ClusterConfigTemplate
-      name: tekton
-    configs:
-      - resource: config-provider
-        name: config
-
-  - name: service-bindings
-    templateRef:
-      kind: ClusterConfigTemplate
-      name: service-bindings
-    configs:
-      - resource: app-config
-        name: app_def
-
-  - name: api-descriptors
-    templateRef:
-      kind: ClusterConfigTemplate
-      name: api-descriptors
-    configs:
-      - resource: service-bindings
-        name: app_def
-
-  - name: config-writer
-    templateRef:
-      kind: ClusterTemplate
-      name: config-writer-and-pull-requester-template
-    params:
-      - name: serviceAccount
-        default: #@ data.values.service_account
-      - name: registry
-        value: #@ data.values.registry
-    configs:
-      - resource: api-descriptors
-        name: config
-
-  - name: deliverable
-    templateRef:
-      kind: ClusterTemplate
-      name: deliverable-template
-    params:
-      - name: registry
-        value: #@ data.values.registry
-
-
+    - resource: tekton-runnable-pipeline
+      name: source

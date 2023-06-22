@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: tekton-task
+spec:
+  params:
+  - name: source-url
+    type: string
+  - name: source-revision
+    type: string
+  - name: sub-path
+    type: string
+  steps:
+  - image: maven:3.8.6
+    name: test
+    resources: {}
+    script: |
+      echo "Task: test, Step: test"
+      cd `mktemp -d`
+      wget -qO- $(params.source-url) | tar xvz -m
+
+      mvn test --no-transfer-progress

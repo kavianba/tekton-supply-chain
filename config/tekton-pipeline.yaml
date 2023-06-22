@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: tekton-pipeline
+spec:
+  params:
+  - name: source-url
+    type: string
+  - name: source-revision
+    type: string
+  - default: ""
+    name: sub-path
+    type: string
+  tasks:
+  - name: test
+    params:
+    - name: source-url
+      value: $(params.source-url)
+    - name: source-revision
+      value: $(params.source-revision)
+    - name: sub-path
+      value: $(params.sub-path)
+    taskSpec:
+      metadata: {}
+      params:
+      - name: source-url
+        type: string
+      - name: source-revision
+        type: string
+      - name: sub-path
+        type: string
+      spec: null
+      steps:
+      - image: maven:3.8.6
+        name: test
+        resources: {}
+        script: |
+          echo "Task: test, Step: test"
+          cd `mktemp -d`
+          wget -qO- $(params.source-url) | tar xvz -m
+
+          mvn test --no-transfer-progress

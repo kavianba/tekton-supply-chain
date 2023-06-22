@@ -1,0 +1,21 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  labels:
+    app.kubernetes.io/part-of: tekton-supply-chain
+    apps.tanzu.vmware.com/workload-type: supply-chain
+  name: tekton-supply-chain
+  namespace: dev
+spec:
+  params:
+  - name: testing_pipeline_matching_labels
+    value:
+      apps.tanzu.vmware.com/pipeline: supply-chain-pipeline
+  - name: testing_pipeline_params
+    value: {}
+  source:
+    git:
+      ref:
+        branch: main
+      url: https://github.com/garethjevans/tekton-supply-chain
+status:
