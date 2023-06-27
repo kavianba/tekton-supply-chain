@@ -1,7 +1,7 @@
 apiVersion: carto.run/v1alpha1
 kind: ClusterRunTemplate
 metadata:
-  name: tekton-cluster-run-template
+  name: tekton-cluster-run-template-pipeline
 spec:
   outputs:
     revision: spec.params[?(@.name=="source-revision")].value

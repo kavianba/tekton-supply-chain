@@ -31,8 +31,8 @@ spec:
     #@   end
     #@   params.append({ "name": "source-url", "value": data.values.source.url })
     #@   params.append({ "name": "source-revision", "value": data.values.source.revision })
-    #@   if hasattr(data.values.source, "subPath"):
-    #@     params.append({ "name": "sub-path", "value": data.values.source.subPath })
+    #@   if hasattr(data.values.workload.spec.source, "subPath"):
+    #@     params.append({ "name": "sub-path", "value": data.values.workload.spec.source.subPath })
     #@   end
     #@   return params
     #@ end
@@ -41,13 +41,13 @@ spec:
     kind: Runnable
     metadata:
       name: #@ data.values.workload.metadata.name + "-pipeline"
-      labels: #@ merge_labels({ "app.kubernetes.io/component": "test" })
+      labels: #@ merge_labels({})
     spec:
       #@ if/end hasattr(data.values.workload.spec, "serviceAccountName"):
       serviceAccountName: #@ data.values.workload.spec.serviceAccountName
 
       runTemplateRef:
-        name: tekton-cluster-run-template
+        name: tekton-cluster-run-template-pipeline
         kind: ClusterRunTemplate
 
       inputs: 

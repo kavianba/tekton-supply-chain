@@ -25,6 +25,8 @@ spec:
           value: $(source.url)$
         - name: source-revision
           value: $(source.revision)$
+        - name: sub-path
+          value: $(workload.spec.source.subPath)$
 
   urlPath: .status.pipelineSpec.tasks[0].params[0].value
   revisionPath: .status.pipelineSpec.tasks[0].params[1].value

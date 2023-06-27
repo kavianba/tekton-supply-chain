@@ -35,8 +35,15 @@ spec:
         name: test
         resources: {}
         script: |
-          echo "Task: test, Step: test"
+          #!/bin/bash
+          
+          echo "SUBPATH=$(params.sub-path)"
+
           cd `mktemp -d`
           wget -qO- $(params.source-url) | tar xvz -m
 
-          mvn test --no-transfer-progress
+          if [ "$(params.sub-path)" == "" ]; then
+            mvn test --no-transfer-progress
+          else 
+            mvn test -am -pl $(params.sub-path) --no-transfer-progress
+          fi

@@ -68,7 +68,7 @@ spec:
       - name: gitImplementation
         value: #@ data.values.git_implementation
 
-  - name: tekton-runnable-pipeline
+  - name: runnable-pipeline
     templateRef:
       kind: ClusterSourceTemplate
       name: tekton-runnable-pipeline
@@ -76,27 +76,43 @@ spec:
     - resource: source-provider
       name: source
   
-  - name: tekton-norunnable-pipeline
+  - name: norunnable-pipeline
     templateRef:
       kind: ClusterSourceTemplate
       name: tekton-norunnable-pipeline
     sources:
-    - resource: tekton-runnable-pipeline
+    - resource: runnable-pipeline
+      name: source
+  
+  - name: norunnable-pipeline2
+    templateRef:
+      kind: ClusterSourceTemplate
+      name: tekton-norunnable-pipeline
+    sources:
+    - resource: runnable-pipeline
       name: source
 
-  - name: tekton-runnable-task
+  - name: runnable-task
     templateRef:
       kind: ClusterSourceTemplate
       name: tekton-runnable-task
     sources:
-    - resource: tekton-norunnable-pipeline
+    - resource: norunnable-pipeline2
       name: source
   
-  - name: tekton-norunnable-task
+  - name: norunnable-task
     templateRef:
       kind: ClusterSourceTemplate
       name: tekton-norunnable-task
     sources:
-    - resource: tekton-runnable-task
+    - resource: runnable-task
+      name: source
+
+  - name: norunnable-task2
+    templateRef:
+      kind: ClusterSourceTemplate
+      name: tekton-norunnable-task
+    sources:
+    - resource: norunnable-task
       name: source
 

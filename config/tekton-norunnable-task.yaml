@@ -25,6 +25,8 @@ spec:
           value: $(source.url)$
         - name: source-revision
           value: $(source.revision)$
+        - name: sub-path
+          value: $(workload.spec.source.subPath)$
 
   urlPath: .spec.params[0].value
   revisionPath: .spec.params[1].value
