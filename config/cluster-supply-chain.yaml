@@ -89,7 +89,7 @@ spec:
       kind: ClusterSourceTemplate
       name: tekton-norunnable-pipeline
     sources:
-    - resource: runnable-pipeline
+    - resource: norunnable-pipeline
       name: source
 
   - name: runnable-task
