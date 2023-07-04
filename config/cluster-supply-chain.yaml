@@ -68,12 +68,20 @@ spec:
       - name: gitImplementation
         value: #@ data.values.git_implementation
 
+  - name: source-tester
+    templateRef:
+      kind: ClusterSourceTemplate
+      name: testing-pipeline
+    sources:
+    - resource: source-provider
+      name: source
+
   - name: runnable-pipeline
     templateRef:
       kind: ClusterSourceTemplate
       name: tekton-runnable-pipeline
     sources:
-    - resource: source-provider
+    - resource: source-tester
       name: source
   
   - name: norunnable-pipeline
