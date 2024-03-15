@@ -1,10 +1,11 @@
 apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
-  name: tekton-pipeline-test-app
+  name:  where-for-dinner
+  namespace: my-apps
   labels:
     apps.tanzu.vmware.com/workload-type: tekton
-    app.kubernetes.io/part-of: tekton-pipeline-test-app
+    app.kubernetes.io/part-of: where-for-dinner
     apps.tanzu.vmware.com/auto-configure-actuators: "true"
 spec:
   params:

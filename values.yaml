@@ -1,3 +1,4 @@
 ---
 registry:
-  repository: ship-interfaces-dev
+  server: <server>
+  repository: tap-install/workloads

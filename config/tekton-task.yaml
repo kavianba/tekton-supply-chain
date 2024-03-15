@@ -1,7 +1,8 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: tekton-task
+  namespace: my-apps
 spec:
   params:
   - name: source-url
@@ -14,7 +15,6 @@ spec:
   steps:
   - image: maven:3.8.6
     name: test
-    resources: {}
     script: |
       #!/bin/bash
           

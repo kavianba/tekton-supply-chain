@@ -7,7 +7,7 @@ spec:
     revision: spec.params[?(@.name=="source-revision")].value
     url: spec.params[?(@.name=="source-url")].value
   template:
-    apiVersion: tekton.dev/v1beta1
+    apiVersion: tekton.dev/v1
     kind: PipelineRun
     metadata:
       generateName: $(runnable.metadata.name)$-
